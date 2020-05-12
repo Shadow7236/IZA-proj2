@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Dog" representedClassName="Dog" syncable="YES" codeGenerationType="class">
-        <attribute name="age" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="dogs" inverseEntity="Person"/>
-    </entity>
-    <entity name="Person" representedClassName="Person" syncable="YES" codeGenerationType="class">
+    <entity name="Ingredience" representedClassName="Ingredience" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="dogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dog" inverseName="owner" inverseEntity="Dog"/>
+        <relationship name="meals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Meal" inverseName="ingrediences" inverseEntity="Meal"/>
+    </entity>
+    <entity name="Meal" representedClassName="Meal" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="isFavourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="receipt" optional="YES" attributeType="String"/>
+        <attribute name="score" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="ingrediences" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredience" inverseName="meals" inverseEntity="Ingredience"/>
+        <relationship name="mealType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MealType" inverseName="meals" inverseEntity="MealType"/>
+    </entity>
+    <entity name="MealType" representedClassName="MealType" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="meals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Meal" inverseName="mealType" inverseEntity="Meal"/>
     </entity>
     <elements>
-        <element name="Person" positionX="-345.6328125" positionY="-3.30078125" width="128" height="73"/>
-        <element name="Dog" positionX="30.30859375" positionY="-3.16796875" width="128" height="73"/>
+        <element name="Meal" positionX="-36.82421875" positionY="13.39453125" width="128" height="178"/>
+        <element name="Ingredience" positionX="233.14453125" positionY="36.7734375" width="128" height="88"/>
+        <element name="MealType" positionX="-287.2109375" positionY="47.22265625" width="128" height="88"/>
     </elements>
 </model>
