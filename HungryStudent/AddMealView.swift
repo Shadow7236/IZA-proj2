@@ -14,14 +14,27 @@ struct AddMealView: View {
     @FetchRequest(entity: Ingredience.entity(),
                   sortDescriptors: [.init(keyPath: \Ingredience.name, ascending: true)])
     var ingrediences: FetchedResults<Ingredience>
-        
+    
+    @FetchRequest(entity: MealType.entity(),
+                  sortDescriptors: [.init(keyPath: \MealType.name, ascending: true)])
+    var mealTypes: FetchedResults<MealType>
+    
+    init(defaultMealType: MealType? = nil) {
+        self.defaultMealType = defaultMealType
+    }
+    
+    private let defaultMealType: MealType?
+    
+    @State var mealType = MealType()
+    
     @State var notes = ""
     @State var receipt = ""
     @State var mealName = ""
     @State var selection = Set<Ingredience>()
     
-    var frameworks = ["UIKit", "Core Data", "CloudKit", "SwiftUI"]
     @State private var selectedFrameworkIndex = 0
+    
+    @Environment (\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
@@ -40,22 +53,56 @@ struct AddMealView: View {
                 Section(header: Text("Notes")) {
                     TextField("Notes", text: $notes)
                 }
-                Section {
+                if !mealTypes.isEmpty {
+                    Section(header: Text("Meal type")){
+                        Picker(selection: $mealType, label: Text("")) {
+                            ForEach(mealTypes) { mt in
+                                Text(mt.name ?? "None")
+                                    .tag(mt)
+                            }
+                        }.pickerStyle(WheelPickerStyle())
+                            .padding()
+                        
+                    }
+                }
+                Section(header: Text("Ingrediences")) {
                     List {
                         ForEach(ingrediences){ ing in
-                            IngredienceSelectionRowView(selection: self.$selection, ing: ing)
+                            if !self.selection.contains(ing) {
+                                IngredienceSelectionRowView(selection: self.$selection, ing: ing)
+                            }
+                        }
+                        ForEach(ingrediences){ ing in
+                            if self.selection.contains(ing) {
+                                IngredienceSelectionRowView(selection: self.$selection, ing: ing)
+                            }
                         }
                     }
                 }
-                Button(action: {
-                    print("Save the order!")
-                }) {
-                    Text("Add Meal")
-                }
                 
-                
-            }.navigationBarTitle("Add Meal")
+            }.navigationBarTitle(Text("Add Meal"), displayMode: .inline)
+                .navigationBarItems(leading:
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Cancel")
+                    },trailing:
+                    Button(action: {
+                        self.addMeal()
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "plus.circle").resizable()
+                            .frame(width: 32, height: 32, alignment: .center)
+                })
         }
+        .onAppear(){
+            self.mealType = self.defaultMealType ?? self.mealTypes.first!
+        }
+    }
+    
+    func addMeal() {
+        _ = Meal(name: mealName, note: notes, receipt: receipt, ings: selection as NSSet, mealType: mealType)
+        AppDelegate.current.saveContext()
     }
 }
 
@@ -64,3 +111,4 @@ struct AddMealView_Previews: PreviewProvider {
         AddMealView().setCD()
     }
 }
+

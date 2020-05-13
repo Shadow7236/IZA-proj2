@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct MealsTypeList: View {
-    
-    
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @State var showAddMealSheet = false
@@ -22,21 +20,31 @@ struct MealsTypeList: View {
     var filterType: String
     
     var filteredMeals: [Meal] {
-        meals.filter { $0.name?.lowercased().hasPrefix(name.lowercased()) == true && $0.name?.lowercased() == filterType.lowercased()}
+        //        print("here i am")
+        let a = meals.filter { $0.name?.lowercased().hasPrefix(name.lowercased()) == true }
+        let b = meals.filter { $0.mealType?.name?.lowercased() == filterType.lowercased() }
+        let r = meals.filter { $0.name?.lowercased().hasPrefix(name.lowercased()) == true && $0.mealType?.name?.lowercased() == filterType.lowercased()}
+        //        print("all count: \(meals.count)")
+        //        print("a, filtered count \(a.count)")
+        //        print("b, filtered count \(b.count)")
+        //        print("prefix: '\(name.lowercased())', filtered count \(r.count)")
+        //        print("ft:", filterType)
+        //        meals.forEach { x in
+        //            print(x.name ?? "unknown", x.mealType, x.mealType?.name)
+        //        }
+        return r
     }
     
     @State private var name = ""
     
     var body: some View {
-        NavigationView {
-            List {
-                SearchBar(placeholder: "Enter meal name", text: $name)
-                ForEach(filteredMeals) { order in
+        List {
+            SearchBar(placeholder: "Enter meal name", text: $name)
+            ForEach(filteredMeals) { order in
+                NavigationLink(destination: MealDetail(meal: order)) {
                     MealRowView(meal: order)
-                    NavigationLink(destination: MealDetail()) {
-                        Text(order.name ?? "None")
-                    }
                 }
+                
             }.navigationBarItems(trailing:
                 Button(action: {
                     self.showAddMealSheet = true
@@ -48,13 +56,15 @@ struct MealsTypeList: View {
                 .navigationBarTitle("Meals")
         }.sheet(isPresented: $showAddMealSheet) {
             AddMealView()
+                .environment(\.managedObjectContext, self.managedObjectContext)
         }
     }
 }
 
 struct MealsTypeList_Previews: PreviewProvider {
     static var previews: some View {
-        let ft = ""
-        return MealsTypeList(filterType: ft).setCD()
+        let ft = "None"
+        return NavigationView { MealsTypeList(filterType: ft).setCD() }
+
     }
 }

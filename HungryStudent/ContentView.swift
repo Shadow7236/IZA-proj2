@@ -11,8 +11,39 @@ import SwiftUI
 struct ContentView: View {
     //    @Environment(\.managedObjectContext)
     //    private var db
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @FetchRequest(entity: MealType.entity(),
+                  sortDescriptors: [.init(keyPath: \MealType.name, ascending: true)])
+    var mealTypes: FetchedResults<MealType>
+    
+    @FetchRequest(entity: Ingredience.entity(),
+                  sortDescriptors: [.init(keyPath: \Ingredience.name, ascending: true)])
+    var ingrediences: FetchedResults<Ingredience>
+    
     var body: some View {
-        Text("Hello, World!")
+        initMealTypes()
+        initIngrediences()
+        return MealsTypesView()
+    }
+    
+    
+    func initMealTypes() {
+        if mealTypes.isEmpty {
+            let a = MealType(context: debugGetContext)
+            a.name = "None"
+            a.id = UUID()
+            AppDelegate.current.saveContext()
+        }
+    }
+    
+    func initIngrediences() {
+        if ingrediences.isEmpty {
+            let a = Ingredience(context: debugGetContext)
+            a.name = "None"
+            a.id = UUID()
+            AppDelegate.current.saveContext()
+        }
     }
 }
 

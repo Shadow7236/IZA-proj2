@@ -14,10 +14,6 @@ struct Stars: View {
     var body: some View {
         HStack{
             Image(systemName: "star.fill")
-            Image(systemName: "star.fill")
-            Image(systemName: "star.fill")
-            Image(systemName: "star.fill")
-            Image(systemName: "star.fill")
             }
         .foregroundColor(.yellow)
     }

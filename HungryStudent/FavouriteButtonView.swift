@@ -11,6 +11,7 @@ import SwiftUI
 struct FavouriteButtonView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
+    @ObservedObject
     var meal: Meal
     
     var body: some View {
@@ -20,8 +21,10 @@ struct FavouriteButtonView: View {
             .foregroundColor(.red)
             .onTapGesture {
                 self.managedObjectContext.performAndWait {
+                    print(self.meal.isFavourite)
                     self.meal.isFavourite.toggle()
                     AppDelegate.current.saveContext()
+                    print(self.meal.isFavourite)
                 }
                 
         }

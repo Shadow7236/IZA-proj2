@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A373FF3246C0EE400CF72AD /* IngredienceSelectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25CE246AF4EC0093C86A /* IngredienceSelectionRowView.swift */; };
+		1A373FF9246C1F7600CF72AD /* AddMealTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25D6246B21150093C86A /* AddMealTypeView.swift */; };
+		1A373FFC246C2F5C00CF72AD /* MealsTypeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25D0246B1A450093C86A /* MealsTypeList.swift */; };
+		1A373FFD246C332200CF72AD /* AddMealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25C5246AE6BC0093C86A /* AddMealView.swift */; };
+		1A374001246C582D00CF72AD /* Meal+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A373FF4246C126100CF72AD /* Meal+init.swift */; };
+		1A7C90C4246C8D2D00D92FC2 /* ObservableObject+toBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7C90C3246C8D2D00D92FC2 /* ObservableObject+toBindable.swift */; };
+		1A7C90C5246C8E5400D92FC2 /* MealDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25B4246AB5D00093C86A /* MealDetail.swift */; };
+		1A7C90C7246C958D00D92FC2 /* MealTypePickerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7C90C6246C958D00D92FC2 /* MealTypePickerSheetView.swift */; };
 		1AEF2537246A98EE0093C86A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF2536246A98EE0093C86A /* AppDelegate.swift */; };
 		1AEF2539246A98EE0093C86A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF2538246A98EE0093C86A /* SceneDelegate.swift */; };
 		1AEF2540246A98EF0093C86A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AEF253F246A98EF0093C86A /* Assets.xcassets */; };
@@ -18,7 +26,6 @@
 		1AEF25AB246AAAAA0093C86A /* AddImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25AA246AAAAA0093C86A /* AddImage.swift */; };
 		1AEF25AD246AAE580093C86A /* NameStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25AC246AAE580093C86A /* NameStars.swift */; };
 		1AEF25AF246AAED70093C86A /* Stars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25AE246AAED70093C86A /* Stars.swift */; };
-		1AEF25B5246AB5D00093C86A /* MealDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25B4246AB5D00093C86A /* MealDetail.swift */; };
 		1AEF25B8246AC2790093C86A /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25B6246ABA3E0093C86A /* SearchBar.swift */; };
 		1AEF25BA246ACEBB0093C86A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF253D246A98EE0093C86A /* ContentView.swift */; };
 		1AEF25BC246AD2300093C86A /* Meal+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25BB246AD2300093C86A /* Meal+Identifiable.swift */; };
@@ -27,11 +34,7 @@
 		1AEF25C4246AE1D20093C86A /* FavouriteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25C1246ADF0D0093C86A /* FavouriteButtonView.swift */; };
 		1AEF25C8246AEC4C0093C86A /* Ingredience+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25C7246AEC4C0093C86A /* Ingredience+Identifiable.swift */; };
 		1AEF25CC246AF0810093C86A /* AppDelegate+current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25CB246AF0810093C86A /* AppDelegate+current.swift */; };
-		1AEF25CD246AF2E80093C86A /* AddMealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25C5246AE6BC0093C86A /* AddMealView.swift */; };
-		1AEF25CF246AF4EC0093C86A /* IngredienceSelectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25CE246AF4EC0093C86A /* IngredienceSelectionRowView.swift */; };
-		1AEF25D1246B1A450093C86A /* MealsTypeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25D0246B1A450093C86A /* MealsTypeList.swift */; };
 		1AEF25D5246B1ECD0093C86A /* MealType+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25D4246B1ECD0093C86A /* MealType+Identifiable.swift */; };
-		1AEF25D7246B21150093C86A /* AddMealTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25D6246B21150093C86A /* AddMealTypeView.swift */; };
 		1AEF25D8246B21BB0093C86A /* MealsTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF25D2246B1BBD0093C86A /* MealsTypesView.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +56,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A373FF4246C126100CF72AD /* Meal+init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Meal+init.swift"; sourceTree = "<group>"; };
+		1A7C90C3246C8D2D00D92FC2 /* ObservableObject+toBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableObject+toBindable.swift"; sourceTree = "<group>"; };
+		1A7C90C6246C958D00D92FC2 /* MealTypePickerSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTypePickerSheetView.swift; sourceTree = "<group>"; };
 		1AEF2533246A98EE0093C86A /* HungryStudent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HungryStudent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AEF2536246A98EE0093C86A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AEF2538246A98EE0093C86A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +118,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A373FF7246C13C000CF72AD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1A7C90C3246C8D2D00D92FC2 /* ObservableObject+toBindable.swift */,
+				1AEF25BB246AD2300093C86A /* Meal+Identifiable.swift */,
+				1A373FF4246C126100CF72AD /* Meal+init.swift */,
+				1AEF25C7246AEC4C0093C86A /* Ingredience+Identifiable.swift */,
+				1AEF25D4246B1ECD0093C86A /* MealType+Identifiable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		1AEF252A246A98EE0093C86A = {
 			isa = PBXGroup;
 			children = (
@@ -135,24 +153,23 @@
 		1AEF2535246A98EE0093C86A /* HungryStudent */ = {
 			isa = PBXGroup;
 			children = (
+				1AEF25B4246AB5D00093C86A /* MealDetail.swift */,
 				1AEF25AC246AAE580093C86A /* NameStars.swift */,
+				1A7C90C6246C958D00D92FC2 /* MealTypePickerSheetView.swift */,
+				1AEF25AE246AAED70093C86A /* Stars.swift */,
 				1AEF25C1246ADF0D0093C86A /* FavouriteButtonView.swift */,
-				1AEF25BB246AD2300093C86A /* Meal+Identifiable.swift */,
-				1AEF25C7246AEC4C0093C86A /* Ingredience+Identifiable.swift */,
-				1AEF25D4246B1ECD0093C86A /* MealType+Identifiable.swift */,
 				1AEF253D246A98EE0093C86A /* ContentView.swift */,
-				1AEF25D6246B21150093C86A /* AddMealTypeView.swift */,
 				1AEF25D2246B1BBD0093C86A /* MealsTypesView.swift */,
+				1AEF25D6246B21150093C86A /* AddMealTypeView.swift */,
 				1AEF25D0246B1A450093C86A /* MealsTypeList.swift */,
 				1AEF25C5246AE6BC0093C86A /* AddMealView.swift */,
 				1AEF25BF246AD78E0093C86A /* MealRowView.swift */,
 				1AEF25CE246AF4EC0093C86A /* IngredienceSelectionRowView.swift */,
 				1AEF25B6246ABA3E0093C86A /* SearchBar.swift */,
-				1AEF25AE246AAED70093C86A /* Stars.swift */,
-				1AEF25B4246AB5D00093C86A /* MealDetail.swift */,
 				1AEF25AA246AAAAA0093C86A /* AddImage.swift */,
 				1AEF2547246A98EF0093C86A /* Info.plist */,
 				1AEF253A246A98EE0093C86A /* HungryStudent.xcdatamodeld */,
+				1A373FF7246C13C000CF72AD /* Extensions */,
 				1AEF25C3246ADF430093C86A /* Helpers */,
 				1AEF2541246A98EF0093C86A /* Preview Content */,
 			);
@@ -329,27 +346,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AEF25D7246B21150093C86A /* AddMealTypeView.swift in Sources */,
 				1AEF2537246A98EE0093C86A /* AppDelegate.swift in Sources */,
+				1A373FF9246C1F7600CF72AD /* AddMealTypeView.swift in Sources */,
+				1A7C90C4246C8D2D00D92FC2 /* ObservableObject+toBindable.swift in Sources */,
 				1AEF25D5246B1ECD0093C86A /* MealType+Identifiable.swift in Sources */,
 				1AEF25CC246AF0810093C86A /* AppDelegate+current.swift in Sources */,
-				1AEF25D1246B1A450093C86A /* MealsTypeList.swift in Sources */,
 				1AEF25AB246AAAAA0093C86A /* AddImage.swift in Sources */,
 				1AEF25A9246AA7700093C86A /* HungryStudent.xcdatamodeld in Sources */,
 				1AEF25D8246B21BB0093C86A /* MealsTypesView.swift in Sources */,
 				1AEF25C8246AEC4C0093C86A /* Ingredience+Identifiable.swift in Sources */,
 				1AEF25BE246AD50A0093C86A /* debugGetContext.swift in Sources */,
 				1AEF25C4246AE1D20093C86A /* FavouriteButtonView.swift in Sources */,
+				1A7C90C7246C958D00D92FC2 /* MealTypePickerSheetView.swift in Sources */,
+				1A374001246C582D00CF72AD /* Meal+init.swift in Sources */,
 				1AEF25AF246AAED70093C86A /* Stars.swift in Sources */,
-				1AEF25CF246AF4EC0093C86A /* IngredienceSelectionRowView.swift in Sources */,
 				1AEF25B8246AC2790093C86A /* SearchBar.swift in Sources */,
 				1AEF25BA246ACEBB0093C86A /* ContentView.swift in Sources */,
-				1AEF25B5246AB5D00093C86A /* MealDetail.swift in Sources */,
+				1A373FFD246C332200CF72AD /* AddMealView.swift in Sources */,
+				1A373FFC246C2F5C00CF72AD /* MealsTypeList.swift in Sources */,
+				1A7C90C5246C8E5400D92FC2 /* MealDetail.swift in Sources */,
 				1AEF25AD246AAE580093C86A /* NameStars.swift in Sources */,
 				1AEF25BC246AD2300093C86A /* Meal+Identifiable.swift in Sources */,
 				1AEF25C0246AD78E0093C86A /* MealRowView.swift in Sources */,
 				1AEF2539246A98EE0093C86A /* SceneDelegate.swift in Sources */,
-				1AEF25CD246AF2E80093C86A /* AddMealView.swift in Sources */,
+				1A373FF3246C0EE400CF72AD /* IngredienceSelectionRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

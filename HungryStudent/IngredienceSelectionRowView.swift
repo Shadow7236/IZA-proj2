@@ -16,7 +16,6 @@ struct IngredienceSelectionRowView: View {
     var body: some View {
         HStack {
             Button(action: {
-//                self.onTap(self.ingId)
                 if self.selection.contains(self.ing) {
                     self.selection = self.selection.filter { $0 != self.ing }
                 } else {
@@ -24,7 +23,7 @@ struct IngredienceSelectionRowView: View {
                 }
             }) {
                 if selection.contains(ing) {
-                    Image(systemName: "square.fill")
+                    Image(systemName: "checkmark.square")
                 } else {
                     Image(systemName: "square")
                 }
@@ -32,7 +31,7 @@ struct IngredienceSelectionRowView: View {
             }
             Spacer()
             Text(ing.name ?? "None" )
-        }
+            } .padding()
         
         
     }
@@ -40,8 +39,8 @@ struct IngredienceSelectionRowView: View {
 
 struct IngredienceSelectionRow_Previews: PreviewProvider {
     static var previews: some View {
-        let ingred = Ingredience()
+        let ingred = Ingredience(context: debugGetContext)
         let sel = Set<Ingredience>()
-        return IngredienceSelectionRowView(selection: .constant(sel), ing: ingred)
+        return IngredienceSelectionRowView(selection: .constant(sel), ing: ingred).setCD()
     }
 }

@@ -45,6 +45,6 @@ struct SearchBar: UIViewRepresentable {
 
 struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBar(text: .constant("asdasda"))
+        SearchBar(text: .constant("Searching string"))
     }
 }

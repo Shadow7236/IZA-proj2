@@ -28,10 +28,9 @@ struct MealsTypesView: View {
             List {
                 SearchBar(placeholder: "Enter meal name", text: $name)
                 ForEach(filteredTypes) { order in
-                    Text(order.name ?? "None")
-//                    NavigationLink(destination: MealsTypeList(filterType: order)) {
-//                        Text(order.name ?? "None")
-//                    }
+                    NavigationLink(destination: MealsTypeList(filterType: order.name ?? "")) {
+                        Text(order.name ?? "None")
+                    }
                 }
             }.navigationBarItems(trailing:
                 Button(action: {
@@ -44,6 +43,7 @@ struct MealsTypesView: View {
                 .navigationBarTitle("MealTypes")
         }.sheet(isPresented: $showAddMealTypeSheet) {
             AddMealTypeView()
+                .environment(\.managedObjectContext, self.managedObjectContext)
         }
     }
     
