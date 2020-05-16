@@ -9,25 +9,31 @@
 import SwiftUI
 
 struct AddImage: View {
+    var baseWidth: CGFloat = 200
+    var computedWidth: CGFloat { baseWidth * 0.35 }
+    var rad: CGFloat { computedWidth / 2 }
+    var bottomPaddingMinus: CGFloat { -0.05 * baseWidth}
+    
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Image(systemName: "camera").resizable()
             .scaledToFit()
-                .frame(width: 200, height: 200)
+                .frame(width: baseWidth, height: baseWidth)
             Image(systemName: "plus.circle.fill").resizable()
                 .scaledToFit()
-                .frame(width: 70, height: 70)
+                .frame(width: computedWidth, height: computedWidth)
                 .foregroundColor(.green)
                 .background(Color.white)
-                .cornerRadius(35)
-                .padding(.bottom, -10)
-                .padding(.trailing, -20)
-        }.padding(.bottom, 10)
+                .cornerRadius(rad)
+                .padding(.bottom, bottomPaddingMinus)
+                .padding(.trailing, bottomPaddingMinus * 2)
+        }.padding(.bottom, bottomPaddingMinus * -1)
     }
 }
 
 struct AddImage_Previews: PreviewProvider {
     static var previews: some View {
-        AddImage()
+        AddImage(baseWidth: 100)
     }
 }

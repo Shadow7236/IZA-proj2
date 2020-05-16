@@ -14,9 +14,10 @@ struct MealRowView: View {
     
     var body: some View {
         HStack{
-            Text("image")
+            DataCoreImageView(meal: meal, baseImgWidth: 50)
             Text("\(meal.name ?? "Unknown")")
                 .font(.headline)
+                .padding()
             Spacer()
             FavouriteButtonView(meal: meal)
         }

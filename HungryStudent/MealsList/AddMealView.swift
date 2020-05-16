@@ -72,6 +72,10 @@ struct AddMealView: View {
                                 IngredienceSelectionRowView(selection: self.$selection, ing: ing)
                             }
                         }
+                        Text("Selected")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .padding(.top)
                         ForEach(ingrediences){ ing in
                             if self.selection.contains(ing) {
                                 IngredienceSelectionRowView(selection: self.$selection, ing: ing)

@@ -21,12 +21,12 @@ struct ContentView: View {
                   sortDescriptors: [.init(keyPath: \Ingredience.name, ascending: true)])
     var ingrediences: FetchedResults<Ingredience>
     
+    
     var body: some View {
         initMealTypes()
         initIngrediences()
-        return MealsTypesView()
+        return AppTabView()
     }
-    
     
     func initMealTypes() {
         if mealTypes.isEmpty {

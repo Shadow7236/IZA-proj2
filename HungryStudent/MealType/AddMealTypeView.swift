@@ -28,10 +28,12 @@ struct AddMealTypeView: View {
                     Text("Cancel")
                 }, trailing:
                 Button(action: {
-                    let a = MealType(context: AppDelegate.current.persistentContainer.viewContext)
-                    a.name = self.name
-                    a.id = UUID()
-                    AppDelegate.current.saveContext()
+                    AppDelegate.current.persistentContainer.viewContext.performAndWait {
+                        let a = MealType(context: AppDelegate.current.persistentContainer.viewContext)
+                        a.name = self.name
+                        a.id = UUID()
+                        AppDelegate.current.saveContext()
+                    }
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "plus.circle").resizable()

@@ -19,7 +19,8 @@ struct NameStars: View {
     }
     
     @State var showPickerSheet = false
-    
+
+    @ObservedObject
     var meal: Meal
     
     var body: some View {
@@ -30,7 +31,7 @@ struct NameStars: View {
                         .textFieldStyle(CustomTextFieldStyle())
                     Spacer()
                 }
-                HStack{
+                HStack {
                     Text(meal.mealType?.name ?? "None")
                         .font(.subheadline)
                         .onTapGesture {
@@ -42,8 +43,8 @@ struct NameStars: View {
             Spacer()
             FavouriteButtonView(meal: meal)
         }.sheet(isPresented: $showPickerSheet) {
-            MealTypePickerSheetView(meal:self.meal, mealType: self.meal.mealType ?? nil)
-                .environment(\.managedObjectContext, self.managedObjectContext)
+                MealTypePickerSheetView(meal:self.meal, mealType: self.meal.mealType!)
+                    .environment(\.managedObjectContext, self.managedObjectContext) 
         }
     }
 }
@@ -53,6 +54,6 @@ struct NameStars_Previews: PreviewProvider {
         let meal = Meal(context: debugGetContext)
         meal.isFavourite = false
         meal.name = "None"
-        return NameStars(meal: meal)
+        return NameStars(meal: meal).setCD()
     }
 }
