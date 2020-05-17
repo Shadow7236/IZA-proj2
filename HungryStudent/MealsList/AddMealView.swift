@@ -32,6 +32,8 @@ struct AddMealView: View {
     @State var mealName = ""
     @State var selection = Set<Ingredience>()
     
+    @State private var showAlert = false
+    
     @State private var selectedFrameworkIndex = 0
     
     @Environment (\.presentationMode) var presentationMode
@@ -92,12 +94,18 @@ struct AddMealView: View {
                         Text("Cancel")
                     },trailing:
                     Button(action: {
-                        self.addMeal()
-                        self.presentationMode.wrappedValue.dismiss()
+                        if self.mealName.isEmpty {
+                            self.showAlert = true
+                        } else {
+                            self.addMeal()
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     }) {
                         Image(systemName: "plus.circle").resizable()
                             .frame(width: 32, height: 32, alignment: .center)
                 })
+        }.alert(isPresented: $showAlert){
+                Alert(title: Text("Error"), message: Text("Name field has to be filled"), dismissButton: .default(Text("Ok")))
         }
         .onAppear(){
             self.mealType = self.defaultMealType ?? self.mealTypes.first!

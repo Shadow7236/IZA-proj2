@@ -1,5 +1,5 @@
 //
-//  NameStars.swift
+//  NameTypeFavouriteView.swift
 //  HungryStudent
 //
 //  Created by Radovan Klembara on 12/05/2020.
@@ -23,11 +23,19 @@ struct NameStars: View {
     @ObservedObject
     var meal: Meal
     
+    @State var name: String
+    
     var body: some View {
         HStack {
             VStack {
                 HStack{
-                    TextField("Name", text: self.meal.toBindable(keyPath: \.name))
+                    TextField(meal.name ?? "Noo name", text: $name, onEditingChanged: {_ in
+                        guard !self.name.isEmpty else { return }
+                        AppDelegate.current.persistentContainer.viewContext.performAndWait {
+                            self.meal.name = self.name
+                            AppDelegate.current.saveContext()
+                        }
+                    })
                         .textFieldStyle(CustomTextFieldStyle())
                     Spacer()
                 }
@@ -54,6 +62,6 @@ struct NameStars_Previews: PreviewProvider {
         let meal = Meal(context: debugGetContext)
         meal.isFavourite = false
         meal.name = "None"
-        return NameStars(meal: meal).setCD()
+        return NameStars(meal: meal, name: "No name").setCD()
     }
 }

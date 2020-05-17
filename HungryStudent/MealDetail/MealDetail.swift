@@ -23,10 +23,6 @@ struct MealDetail: View {
     @ObservedObject
     var meal: Meal
     
-    init(meal: Meal) {
-        self.meal = meal
-    }
-    
     var selection: Set<Ingredience> {
         if let a = meal.ingrediences {
             return Set<Ingredience>(_immutableCocoaSet: a)
@@ -46,7 +42,7 @@ struct MealDetail: View {
                 }
             }
             Section(header: Text("Meal")) {
-                NameStars(meal: meal)
+                NameStars(meal: meal, name:  meal.name ?? "No name")
             }
             Section(header: Text("Receipt")) {
                 TextField("Receipt", text: self.meal.toBindable(keyPath: \.receipt))
@@ -55,7 +51,7 @@ struct MealDetail: View {
                 TextField("Note", text: self.meal.toBindable(keyPath: \.note))
             }
             Section(header: HStack{
-                Text("ingrediences")
+                Text("Ingrediences")
                 Spacer()
                 Button(action: {
                     self.showAddIngredienceView = true

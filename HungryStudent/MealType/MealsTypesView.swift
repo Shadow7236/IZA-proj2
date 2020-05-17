@@ -28,10 +28,8 @@ struct MealsTypesView: View {
             List {
                 SearchBar(placeholder: "Enter meal name", text: $name)
                 ForEach(filteredTypes) { order in
-                    NavigationLink(destination: MealsTypeList(filterType: order.name ?? "")) {
                         Text(order.name ?? "None")
-                    }
-                }
+                }.onDelete(perform: removeMealType)
             }.navigationBarItems(trailing:
                 Button(action: {
                     self.showAddMealTypeSheet = true
@@ -47,9 +45,22 @@ struct MealsTypesView: View {
         }
     }
     
-    struct MealsTypesView_Previews: PreviewProvider {
-        static var previews: some View {
-            MealsTypesView().setCD()
+    func removeMealType(at offsets: IndexSet) {
+        for index in offsets {
+            let delMealType = mealTypes[index]
+            managedObjectContext.delete(delMealType)
+            do {
+                try managedObjectContext.save()
+            } catch {
+                // handle the Core Data error
+            }
         }
     }
 }
+
+struct MealsTypesView_Previews: PreviewProvider {
+    static var previews: some View {
+        MealsTypesView().setCD()
+    }
+}
+

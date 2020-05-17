@@ -15,6 +15,8 @@ struct AddIngredienceView: View {
     
     @State var name = ""
     
+    @State var showAlert = false
+    
     var body: some View {
         NavigationView {
             List {
@@ -28,15 +30,21 @@ struct AddIngredienceView: View {
                     Text("Cancel")
                 }, trailing:
                 Button(action: {
-                    let a = Ingredience(context: AppDelegate.current.persistentContainer.viewContext)
-                    a.name = self.name
-                    a.id = UUID()
-                    AppDelegate.current.saveContext()
-                    self.presentationMode.wrappedValue.dismiss()
+                    if self.name.isEmpty {
+                        self.showAlert = true;
+                    } else {
+                        let a = Ingredience(context: AppDelegate.current.persistentContainer.viewContext)
+                        a.name = self.name
+                        a.id = UUID()
+                        AppDelegate.current.saveContext()
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
                 }) {
                     Image(systemName: "plus.circle").resizable()
                         .frame(width: 32, height: 32, alignment: .center)
             })
+        }.alert(isPresented: $showAlert){
+            Alert(title: Text("Error"), message: Text("Name field has to be filled"), dismissButton: .default(Text("Ok")))
         }
     }
 }

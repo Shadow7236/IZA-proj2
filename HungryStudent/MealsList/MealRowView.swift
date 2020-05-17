@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MealRowView: View {
     
+    @ObservedObject
     var meal: Meal
     
     var body: some View {

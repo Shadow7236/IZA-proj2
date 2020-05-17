@@ -38,7 +38,7 @@ struct MealsTypeList: View {
                 NavigationLink(destination: MealDetail(meal: order)) {
                     MealRowView(meal: order)
                 }
-            }
+            }.onDelete(perform: removeMeal)
         }.sheet(isPresented: $showAddMealSheet) {
             AddMealView()
                 .environment(\.managedObjectContext, self.managedObjectContext)
@@ -50,7 +50,15 @@ struct MealsTypeList: View {
                     .frame(width: 32, height: 32, alignment: .center)
             }
         )
-            .navigationBarTitle("Meals")
+        .navigationBarTitle("Meals")
+    }
+    
+    func removeMeal(at offsets: IndexSet) {
+        for index in offsets {
+            let delMeal = meals[index]
+            managedObjectContext.delete(delMeal)
+            AppDelegate.current.saveContext()
+        }
     }
 }
 

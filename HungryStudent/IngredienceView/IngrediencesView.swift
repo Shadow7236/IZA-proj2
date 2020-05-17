@@ -22,19 +22,27 @@ struct IngrediencesView: View {
             List{
                 ForEach(ingrediences){ ing in
                     Text(ing.name ?? "None")
-                }
+                }.onDelete(perform: removeIng)
             }.sheet(isPresented: $showAddIngredienceView) {
                 AddIngredienceView()
-                .environment(\.managedObjectContext, self.managedObjectContext)
+                    .environment(\.managedObjectContext, self.managedObjectContext)
             }
             .navigationBarTitle("Ingrediences")
             .navigationBarItems(trailing: Button(action: {
-                    self.showAddIngredienceView = true
-                }) {
-                    Image(systemName: "plus.circle").resizable()
-                        .frame(width: 32, height: 32, alignment: .center)
+                self.showAddIngredienceView = true
+            }) {
+                Image(systemName: "plus.circle").resizable()
+                    .frame(width: 32, height: 32, alignment: .center)
                 }
             )
+        }
+    }
+    
+    func removeIng(at offsets: IndexSet) {
+        for index in offsets {
+            let delIng = ingrediences[index]
+            managedObjectContext.delete(delIng)
+            AppDelegate.current.saveContext()
         }
     }
 }

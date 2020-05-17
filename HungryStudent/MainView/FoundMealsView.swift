@@ -25,7 +25,7 @@ struct FoundMealsView: View {
             if self.selection.isEmpty {
                 Text("Not found").font(.title)
             } else {
-                HStack {
+                HStack(alignment: .top) {
                     ForEach(sortedSelection) { meal in
                         FoundMealImageView(meal: meal)
                     }

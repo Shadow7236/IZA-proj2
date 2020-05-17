@@ -15,6 +15,8 @@ struct AddMealTypeView: View {
     
     @State var name = ""
     
+    @State var showAlert = false
+    
     var body: some View {
         NavigationView {
             List {
@@ -28,17 +30,23 @@ struct AddMealTypeView: View {
                     Text("Cancel")
                 }, trailing:
                 Button(action: {
-                    AppDelegate.current.persistentContainer.viewContext.performAndWait {
-                        let a = MealType(context: AppDelegate.current.persistentContainer.viewContext)
-                        a.name = self.name
-                        a.id = UUID()
-                        AppDelegate.current.saveContext()
+                    if self.name == "" {
+                        self.showAlert = true
+                    } else {
+                        AppDelegate.current.persistentContainer.viewContext.performAndWait {
+                            let a = MealType(context: AppDelegate.current.persistentContainer.viewContext)
+                            a.name = self.name
+                            a.id = UUID()
+                            AppDelegate.current.saveContext()
+                        }
+                        self.presentationMode.wrappedValue.dismiss()
                     }
-                    self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "plus.circle").resizable()
                         .frame(width: 32, height: 32, alignment: .center)
             })
+        }.alert(isPresented: $showAlert){
+            Alert(title: Text("Error"), message: Text("Name field has to be filled"), dismissButton: .default(Text("Ok")))
         }
     }
 }

@@ -23,11 +23,10 @@ struct MainView: View {
     
     var body: some View {
         VStack{
-//            Text("asda")
             FoundMealsView(selection: filterMeals()).animation(.easeIn)
             FilterMealsView(selection: $selIngred)
             
-        }
+        }.navigationBarTitle("Found Meals")
     }
     
     func filterOneMeal(_ meal: Meal) -> Bool {
@@ -41,7 +40,6 @@ struct MainView: View {
     
     func filterMeals() -> Set<Meal> {
         let res = Set(meals.filter(filterOneMeal))
-//        print(res.map { $0.id! })
         return res
     }
 }

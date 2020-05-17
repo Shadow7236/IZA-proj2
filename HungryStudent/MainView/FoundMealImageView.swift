@@ -10,14 +10,16 @@ import SwiftUI
 
 struct FoundMealImageView: View {
     
-    
-    @State var meal: Meal
+    @ObservedObject
+    var meal: Meal
     
     var body: some View {
         NavigationLink(destination: MealDetail(meal: meal)) {
             VStack {
-                DataCoreImageView(meal: meal, baseImgWidth: 50)
+                DataCoreImageView(meal: meal, baseImgWidth: 70)
                 Text(meal.name ?? "None").font(.subheadline)
+                .frame(idealWidth: 70, maxWidth: nil)
+                    .lineLimit(nil)
             }
             .foregroundColor(.black)
         }

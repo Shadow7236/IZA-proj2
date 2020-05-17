@@ -19,18 +19,22 @@ struct AppTabView: View {
                     Text("Find")
                         .font(.title)
             }.tag(0)
-//            NavigationView {
-//                MealsTypeList(filterType: nil)
-//            }.tabItem {
-//                Image(systemName: "text.justify")
-//                Text("Meals")
-//            }.tag(1)
-//
-//            IngrediencesView()
-//                .tabItem {
-//                    Image(systemName: "list.bullet")
-//                    Text("Ingrediences")
-//            }.tag(2)
+            NavigationView {
+                MealsTypeList(filterType: nil)
+            }.tabItem {
+                Image(systemName: "text.justify")
+                Text("Meals")
+            }.tag(1)
+            IngrediencesView()
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("Ingrediences")
+            }.tag(2)
+            MealsTypesView()
+                .tabItem{
+                    Image(systemName: "square.on.circle.fill").resizable().frame(width: 10)
+                    Text("Meal Types")
+            }.tag(3)
         }
     }
 }

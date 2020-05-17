@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct FilterMealsView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
