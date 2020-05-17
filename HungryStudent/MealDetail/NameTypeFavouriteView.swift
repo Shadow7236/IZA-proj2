@@ -5,12 +5,14 @@
 //  Created by Radovan Klembara on 12/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+//  View responsible for showing and editing of meal name, type and information if meal is fvourite
 
 import SwiftUI
 
 struct NameStars: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
+    // Custom style for prettier textfield for meal name.
     public struct CustomTextFieldStyle : TextFieldStyle {
         public func _body(configuration: TextField<Self._Label>) -> some View {
             configuration
@@ -29,6 +31,7 @@ struct NameStars: View {
         HStack {
             VStack {
                 HStack{
+                    // Shows name and saves any changes except full deletion of name.
                     TextField(meal.name ?? "Noo name", text: $name, onEditingChanged: {_ in
                         guard !self.name.isEmpty else { return }
                         AppDelegate.current.persistentContainer.viewContext.performAndWait {
@@ -40,6 +43,7 @@ struct NameStars: View {
                     Spacer()
                 }
                 HStack {
+                    // Shows meal type, which can be changed by tap in other view.
                     Text(meal.mealType?.name ?? "None")
                         .font(.subheadline)
                         .onTapGesture {
@@ -49,6 +53,7 @@ struct NameStars: View {
                 }
             }
             Spacer()
+            // Handels favourite button
             FavouriteButtonView(meal: meal)
         }.sheet(isPresented: $showPickerSheet) {
                 MealTypePickerSheetView(meal:self.meal, mealType: self.meal.mealType!)

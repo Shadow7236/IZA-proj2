@@ -5,6 +5,7 @@
 //  Created by Radovan Klembara on 12/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+//  View for add image icon. With possibility of resizeing it
 
 import SwiftUI
 

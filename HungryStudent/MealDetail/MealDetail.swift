@@ -5,6 +5,7 @@
 //  Created by Radovan Klembara on 12/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+//  Shows detailed known information about meal.
 
 import SwiftUI
 import CoreData
@@ -23,17 +24,18 @@ struct MealDetail: View {
     @ObservedObject
     var meal: Meal
     
+    // Set of meal ingrediences.
     var selection: Set<Ingredience> {
         if let a = meal.ingrediences {
             return Set<Ingredience>(_immutableCocoaSet: a)
         } else {
             return Set<Ingredience>()
         }
-        
     }
     
     var body: some View {
         Form {
+            // Handles image of meal.
             Section{
                 HStack{
                     Spacer()
@@ -41,15 +43,19 @@ struct MealDetail: View {
                     Spacer()
                 }
             }
+            // Handles name, type of meal and if it is favoured.
             Section(header: Text("Meal")) {
                 NameStars(meal: meal, name:  meal.name ?? "No name")
             }
+            // Shows receipt.
             Section(header: Text("Receipt")) {
                 TextField("Receipt", text: self.meal.toBindable(keyPath: \.receipt))
             }
+            // Shows notes.
             Section(header: Text("Note")) {
                 TextField("Note", text: self.meal.toBindable(keyPath: \.note))
             }
+            // Shows list of ingrediences for meal.
             Section(header: HStack{
                 Text("Ingrediences")
                 Spacer()
@@ -60,6 +66,7 @@ struct MealDetail: View {
                     }
             }){
                 List {
+                    // List of ingrediences.
                     ForEach(ingrediences.filter({selection.contains($0) })){ ing in
                         Text(ing.name ?? "None")
                     }

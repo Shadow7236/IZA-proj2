@@ -4,6 +4,7 @@
 //
 //  Taken from: https://www.hackingwithswift.com/books/ios-swiftui/building-our-basic-ui
 //
+// View for picking image for meal.
 
 import SwiftUI
 
@@ -18,6 +19,7 @@ struct AddImageView: View {
     
     var body: some View {
         VStack {
+            // Shows meal image if there is any or AddImage icon.
             DataCoreImageView(meal: meal)
             .onTapGesture {
                 self.showingImagePicker = true
@@ -29,6 +31,7 @@ struct AddImageView: View {
         }
     }
     
+    // Saves image into database.
     func loadImage() {
         guard let inputImage = inputImage else { return }
         let imageData = inputImage.pngData()

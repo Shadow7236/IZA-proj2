@@ -5,6 +5,7 @@
 //  Created by Radovan Klembara on 13/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+// View for changing meal type.
 
 import SwiftUI
 
@@ -21,8 +22,8 @@ struct MealTypePickerSheetView: View {
     @State var mealType: MealType
     @State var mealTypeIndex = 0
     
+    // Count of meal types.
     var asd: Int {
-        print("c", mealTypes.count)
         return mealTypes.count
     }
     
@@ -30,6 +31,7 @@ struct MealTypePickerSheetView: View {
         NavigationView{
             Form {
                 Section(){
+                    // Selects one meal type.
                     Picker(selection: $mealType, label: Text("")) {
                         ForEach(mealTypes) { mt in
                             Text(mt.name ?? "None")
@@ -41,11 +43,13 @@ struct MealTypePickerSheetView: View {
             }
             .navigationBarTitle(Text("Set meal type"), displayMode: .inline)
             .navigationBarItems( leading:
+                // Cancels changes.
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Cancel")
                 }, trailing:
+                // Saves changes.
                 Button(action: {
                     AppDelegate.current.persistentContainer.viewContext.performAndWait {
                         self.meal.mealType = self.mealType

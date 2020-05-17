@@ -5,6 +5,7 @@
 //  Created by Radovan Klembara on 16/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+//  View for showing all ingrediences, adding new ingrediences and removeing ingrediences.
 
 import SwiftUI
 
@@ -20,6 +21,7 @@ struct IngrediencesView: View {
     var body: some View {
         NavigationView {
             List{
+                // List of all ingrediences.
                 ForEach(ingrediences){ ing in
                     Text(ing.name ?? "None")
                 }.onDelete(perform: removeIng)
@@ -38,6 +40,7 @@ struct IngrediencesView: View {
         }
     }
     
+    // Removes ingredience from database.
     func removeIng(at offsets: IndexSet) {
         for index in offsets {
             let delIng = ingrediences[index]
