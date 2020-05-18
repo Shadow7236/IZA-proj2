@@ -5,12 +5,11 @@
 //  Created by Radovan Klembara on 12/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+//  Main view of application.
 
 import SwiftUI
 
 struct ContentView: View {
-    //    @Environment(\.managedObjectContext)
-    //    private var db
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(entity: MealType.entity(),
@@ -23,11 +22,11 @@ struct ContentView: View {
     
     
     var body: some View {
-        initMealTypes()
-        initIngrediences()
-        return AppTabView()
+        /// Shows current tab view.
+        AppTabView()
     }
     
+    /// Adds first meal type to empty database.
     func initMealTypes() {
         if mealTypes.isEmpty {
             let a = MealType(context: debugGetContext)
@@ -37,6 +36,7 @@ struct ContentView: View {
         }
     }
     
+    /// Adds first ingredience to empty database.
     func initIngrediences() {
         if ingrediences.isEmpty {
             let a = Ingredience(context: debugGetContext)

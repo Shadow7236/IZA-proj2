@@ -10,6 +10,8 @@
 import SwiftUI
 
 struct AddImage: View {
+    
+    /// Size of image is computed depending on baseWidth variable.
     var baseWidth: CGFloat = 200
     var computedWidth: CGFloat { baseWidth * 0.35 }
     var rad: CGFloat { computedWidth / 2 }

@@ -18,14 +18,22 @@ struct IngrediencesView: View {
     
     @State var showAddIngredienceView = false
     
+    @State var name = ""
+    
+    /// Filters ingrediences by what is searched.
+    var filteredIngrediences: [Ingredience] {
+           ingrediences.filter { $0.name?.lowercased().hasPrefix(name.lowercased()) == true }
+    }
+    
     var body: some View {
         NavigationView {
             List{
-                // List of all ingrediences.
-                ForEach(ingrediences){ ing in
+                SearchBar(placeholder: "Enter ingredience name", text: $name)
+                /// List of all ingrediences with searching prefix.
+                ForEach(filteredIngrediences){ ing in
                     Text(ing.name ?? "None")
                 }.onDelete(perform: removeIng)
-            }.sheet(isPresented: $showAddIngredienceView) {
+            }.keyboardResponsive().sheet(isPresented: $showAddIngredienceView) {
                 AddIngredienceView()
                     .environment(\.managedObjectContext, self.managedObjectContext)
             }
@@ -40,7 +48,8 @@ struct IngrediencesView: View {
         }
     }
     
-    // Removes ingredience from database.
+    /// Removes ingredience from database.
+    /// - Parameter offsets: index to ingredience database.
     func removeIng(at offsets: IndexSet) {
         for index in offsets {
             let delIng = ingrediences[index]

@@ -5,12 +5,15 @@
 //  Created by Radovan Klembara on 16/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+//  View for shoving all filtered meals in main view.
 
 import SwiftUI
 
 struct FoundMealsView: View {
+    // Selection of meals.
     let selection: Set<Meal>
     
+    /// Sorted selection of meals.
     var sortedSelection: [Meal] {
         selection.sorted { l, r in
             guard let a = l.name, let b = r.name else {
@@ -22,9 +25,11 @@ struct FoundMealsView: View {
     
     var body: some View {
         ScrollView(.horizontal) {
+            /// None meal found.
             if self.selection.isEmpty {
-                Text("Not found").font(.title)
+                Text("None found").font(.title)
             } else {
+                /// Shows found meal image and name.
                 HStack(alignment: .top) {
                     ForEach(sortedSelection) { meal in
                         FoundMealImageView(meal: meal)

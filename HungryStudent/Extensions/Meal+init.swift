@@ -5,6 +5,7 @@
 //  Created by Radovan Klembara on 13/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+// Extension to Meal to be easily initialized.
 
 import CoreData
 

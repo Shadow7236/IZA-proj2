@@ -17,14 +17,27 @@ struct MealDetail: View {
                   sortDescriptors: [.init(keyPath: \Ingredience.name, ascending: true)])
     var ingrediences: FetchedResults<Ingredience>
     
-    @State var img: Image?
+    /// Source of new image.
+    @State private var addImageFrom: UIImagePickerController.SourceType = .photoLibrary
     
-    @State var showAddIngredienceView = false
+    /// Enumeration for deciding which sheet to show.
+    enum ShowSheetType {
+        case addIngredience, addImage
+    }
+    
+    /// Holds information if any sheet should be shown.
+    @State var showSheet = false
+    
+    /// Which type of sheet should be shown.
+    @State private var showSheetType: ShowSheetType = .addImage
+    
+    /// Variable for storing image.
+    @State private var inputImage: UIImage?
     
     @ObservedObject
     var meal: Meal
     
-    // Set of meal ingrediences.
+    /// Set of meal ingrediences.
     var selection: Set<Ingredience> {
         if let a = meal.ingrediences {
             return Set<Ingredience>(_immutableCocoaSet: a)
@@ -35,46 +48,83 @@ struct MealDetail: View {
     
     var body: some View {
         Form {
-            // Handles image of meal.
+            /// Handles image of meal.
             Section{
                 HStack{
                     Spacer()
-                    AddImageView(meal: meal)
+                    DataCoreImageView(meal: meal)
                     Spacer()
                 }
             }
-            // Handles name, type of meal and if it is favoured.
+            /// Handles name, type of meal and if it is favoured.
             Section(header: Text("Meal")) {
-                NameStars(meal: meal, name:  meal.name ?? "No name")
+                NameTypeFavouriteView(meal: meal, name:  meal.name ?? "No name")
             }
-            // Shows receipt.
+            /// Shows receipt.
             Section(header: Text("Receipt")) {
                 TextField("Receipt", text: self.meal.toBindable(keyPath: \.receipt))
             }
-            // Shows notes.
+            /// Shows notes.
             Section(header: Text("Note")) {
                 TextField("Note", text: self.meal.toBindable(keyPath: \.note))
             }
-            // Shows list of ingrediences for meal.
+            /// Shows list of ingrediences for meal.
             Section(header: HStack{
                 Text("Ingrediences")
                 Spacer()
+                /// Handles showing view for editing ingrediences
                 Button(action: {
-                    self.showAddIngredienceView = true
-                    }) {
-                        Text("Edit")
-                    }
+                    self.showSheet = true
+                    self.showSheetType = .addIngredience
+                }) {
+                    Text("Edit")
+                }
             }){
                 List {
-                    // List of ingrediences.
+                    /// List of ingrediences.
                     ForEach(ingrediences.filter({selection.contains($0) })){ ing in
                         Text(ing.name ?? "None")
                     }
                 }
             }
-        }.sheet(isPresented: $showAddIngredienceView) {
-            MealAddIngredienceView(meal: self.meal, selection: self.selection)
-                .environment(\.managedObjectContext, self.managedObjectContext)
+        }
+        .navigationBarItems(trailing: HStack {
+            /// Button for adding image from library.
+            Button(action: {
+                self.addImageFrom = .photoLibrary
+                self.showSheetType = ShowSheetType.addImage
+                self.showSheet = true
+            }){
+                Image(systemName: "photo").resizable().frame(width: 20, height: 20)
+            }
+            /// Button for adding image from camera.
+            Button(action: {
+                self.addImageFrom = .camera
+                self.showSheetType = ShowSheetType.addImage
+                self.showSheet = true
+            }){
+                Image(systemName: "camera.fill").resizable().frame(width: 20, height: 20)
+            }
+        }).sheet(isPresented: $showSheet, onDismiss: loadImage) {
+            /// Decides which sheet will be showed.
+                if self.showSheetType == ShowSheetType.addImage {
+                    ImagePicker(image: self.$inputImage, sourceType: self.addImageFrom)
+                } else {
+                    MealAddIngredienceView(meal: self.meal, selection: self.selection)
+                        .environment(\.managedObjectContext, self.managedObjectContext)
+                }
+        }
+    }
+    
+    /// Saves image into database.
+    func loadImage() {
+        if self.showSheetType == .addImage {
+            guard let inputImage = inputImage else { return }
+            let imageData = inputImage.pngData()
+            AppDelegate.current.persistentContainer.viewContext.performAndWait {
+                meal.image = imageData
+                AppDelegate.current.saveContext()
+            }
         }
     }
 }
@@ -86,6 +136,6 @@ struct MealDetail_Previews: PreviewProvider {
         let meal = Meal(context: debugGetContext)
         meal.name = "None"
         meal.score = 3
-        return MealDetail(meal: meal).setCD()
+        return NavigationView { MealDetail(meal: meal).setCD() }
     }
 }

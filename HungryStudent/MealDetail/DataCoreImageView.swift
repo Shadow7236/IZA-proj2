@@ -17,12 +17,13 @@ struct DataCoreImageView: View {
     var baseImgWidth: CGFloat = 200
     
     var body: some View {
+        /// Shows image.
         getImage()
     }
     
     
     
-    // Returns meal image if it is assigned otherwise AddImage icon is returned.
+    /// Returns meal image if it is assigned otherwise AddImage icon is returned.
     func getImage() -> some View {
         guard let image = getImageFromCD() else {
             return AnyView(AddImage(baseWidth: baseImgWidth))
@@ -32,7 +33,7 @@ struct DataCoreImageView: View {
         return AnyView(img)
     }
     
-    // Returns formated image of meal from database if there is any, otherwise nil is returned
+    /// Returns formated image of meal from database if there is any, otherwise nil is returned
     func getImageFromCD() -> AnyView? {
         if let b = meal.image {
             let a = UIImage(data: b)

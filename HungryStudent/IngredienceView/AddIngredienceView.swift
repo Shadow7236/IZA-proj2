@@ -25,13 +25,13 @@ struct AddIngredienceView: View {
             }
             .navigationBarTitle(Text("Add ingredience"), displayMode: .inline)
             .navigationBarItems( leading:
-                // Cancel button.
+                /// Cancel button.
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Cancel")
                 }, trailing:
-                // Add button. Tests emptyness of new ingredience name. If it is empty alert will be shown. Otherwise new ingeredience will be added.
+                /// Tests emptyness of new ingredience name. If it is empty alert will be shown. Otherwise new ingeredience will be added.
                 Button(action: {
                     if self.name.isEmpty {
                         self.showAlert = true;

@@ -5,6 +5,7 @@
 //  Created by Radovan Klembara on 12/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+// Shows all types of meals and handles adding new and removeing.
 
 import SwiftUI
 
@@ -16,6 +17,7 @@ struct MealsTypesView: View {
     var mealTypes: FetchedResults<MealType>
     
     var filteredTypes: [MealType] {
+        /// Filters meal types by what is searched.
         mealTypes.filter { $0.name?.lowercased().hasPrefix(name.lowercased()) == true }
     }
     
@@ -25,12 +27,14 @@ struct MealsTypesView: View {
     
     var body: some View {
         NavigationView {
-            List {
+            List { 
                 SearchBar(placeholder: "Enter meal name", text: $name)
+                /// List of all meal types with searched prefix.
                 ForEach(filteredTypes) { order in
                         Text(order.name ?? "None")
                 }.onDelete(perform: removeMealType)
-            }.navigationBarItems(trailing:
+            }.keyboardResponsive().navigationBarItems(trailing:
+                /// Shows adding view.
                 Button(action: {
                     self.showAddMealTypeSheet = true
                 }) {
@@ -45,15 +49,16 @@ struct MealsTypesView: View {
         }
     }
     
+    /// Removes meal type from database
+    
+    
+    /// Removes meal type from database on idex.
+    /// - Parameter offsets: index
     func removeMealType(at offsets: IndexSet) {
         for index in offsets {
             let delMealType = mealTypes[index]
             managedObjectContext.delete(delMealType)
-            do {
-                try managedObjectContext.save()
-            } catch {
-                // handle the Core Data error
-            }
+            AppDelegate.current.saveContext()
         }
     }
 }

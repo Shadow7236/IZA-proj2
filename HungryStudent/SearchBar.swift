@@ -4,6 +4,7 @@
 //
 // taken from https://stackoverflow.com/questions/56490963/how-to-display-a-search-bar-with-swiftui
 //
+//  Handles search bar.
 
 import SwiftUI
 

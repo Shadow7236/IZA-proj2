@@ -19,10 +19,10 @@ struct MealTypePickerSheetView: View {
     var mealTypes: FetchedResults<MealType>
     
     @State var meal: Meal
-    @State var mealType: MealType
+    @State var mealType: MealType?
     @State var mealTypeIndex = 0
     
-    // Count of meal types.
+    /// Count of meal types.
     var asd: Int {
         return mealTypes.count
     }
@@ -31,11 +31,10 @@ struct MealTypePickerSheetView: View {
         NavigationView{
             Form {
                 Section(){
-                    // Selects one meal type.
+                    /// Selects one meal type.
                     Picker(selection: $mealType, label: Text("")) {
                         ForEach(mealTypes) { mt in
-                            Text(mt.name ?? "None")
-                                .tag(mt)
+                            self.getMealTypeName(mt: mt)
                         }
                     }.pickerStyle(WheelPickerStyle())
                         .padding()
@@ -43,23 +42,43 @@ struct MealTypePickerSheetView: View {
             }
             .navigationBarTitle(Text("Set meal type"), displayMode: .inline)
             .navigationBarItems( leading:
-                // Cancels changes.
+                /// Cancels changes.
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Cancel")
                 }, trailing:
-                // Saves changes.
+                /// Saves changes.
                 Button(action: {
+                    /// Handles deletion of used meal type and selection of nil type.
+                    if self.mealType == nil || self.mealType?.name != nil{
                     AppDelegate.current.persistentContainer.viewContext.performAndWait {
-                        self.meal.mealType = self.mealType
+                        if self.mealType == nil {
+                            self.meal.mealType = self.mealTypes.first
+                        } else {
+                            self.meal.mealType = self.mealType
+                        }
                         AppDelegate.current.saveContext()
+                    }
                     }
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "plus.circle").resizable()
                         .frame(width: 32, height: 32, alignment: .center)
             })
+        }
+    }
+    
+    
+    /// Gets text view only for real types.
+    /// - Parameter mt: meal type
+    /// - Returns: view
+    func getMealTypeName(mt: MealType) -> AnyView {
+        if let _ = mt.name {
+            return AnyView(Text(mt.name!)
+                .tag(mt))
+        } else {
+            return AnyView(EmptyView())
         }
     }
 }

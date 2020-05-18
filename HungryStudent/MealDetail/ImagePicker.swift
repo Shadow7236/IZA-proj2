@@ -12,21 +12,13 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     @Binding var image: UIImage?
 
-//    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-//        let picker = UIImagePickerController()
-//        picker.delegate = context.coordinator
-//        return picker
-//    }
+    var sourceType: UIImagePickerController.SourceType = .photoLibrary
 
+    /// Controller for Image picker.
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
-        // Gets source of selection.
-        if !UIImagePickerController.isSourceTypeAvailable(.camera){
-            picker.sourceType = .photoLibrary
-        } else {
-            picker.sourceType = .camera
-        }
+        picker.sourceType = self.sourceType
         return picker
     }
     
@@ -45,7 +37,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             self.parent = parent
         }
         
-        // Handles commit of picking image.
+        /// Handles commit of picking image.
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let uiImage = info[.originalImage] as? UIImage {
                 parent.image = uiImage

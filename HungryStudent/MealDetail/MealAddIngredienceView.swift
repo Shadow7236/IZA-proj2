@@ -24,7 +24,7 @@ struct MealAddIngredienceView: View {
     var body: some View {
         NavigationView {
             List {
-                // List of unselected ingrediences.
+                /// List of unselected ingrediences.
                 ForEach(ingrediences){ ing in
                     if !self.selection.contains(ing) {
                         IngredienceSelectionRowView(selection: self.$selection, ing: ing)
@@ -34,20 +34,20 @@ struct MealAddIngredienceView: View {
                     .font(.headline)
                     .fontWeight(.bold)
                     .padding(.top)
-                // List of selected ingrediences.
+                /// List of selected ingrediences.
                 ForEach(ingrediences){ ing in
                     if self.selection.contains(ing) {
                         IngredienceSelectionRowView(selection: self.$selection, ing: ing)
                     }
                 }
             }.navigationBarItems(leading:
-                // Cancels editing.
+                /// Cancels editing.
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Cancel")
                 },trailing:
-                // Saves changes.
+                /// Saves changes.
                 Button(action: {
                     AppDelegate.current.persistentContainer.viewContext.performAndWait {
                         self.meal.ingrediences = self.selection as NSSet

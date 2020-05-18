@@ -5,6 +5,7 @@
 //  Created by Radovan Klembara on 12/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+// View showing favourite button of meal.
 
 import SwiftUI
 
@@ -19,17 +20,16 @@ struct FavouriteButtonView: View {
             .resizable().scaledToFit()
             .frame(width: 40)
             .foregroundColor(.red)
+            /// On tap it toggles value and saves it to database
             .onTapGesture {
                 self.managedObjectContext.performAndWait {
-                    print(self.meal.isFavourite)
                     self.meal.isFavourite.toggle()
                     AppDelegate.current.saveContext()
-                    print(self.meal.isFavourite)
                 }
-                
         }
     }
     
+    /// Variable for choosing image depending on favourite attribute.
     var isFav: String{
         if meal.isFavourite {
             return  "heart.fill"

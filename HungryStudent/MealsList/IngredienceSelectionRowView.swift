@@ -5,6 +5,7 @@
 //  Created by Radovan Klembara on 12/05/2020.
 //  Copyright © 2020 Radovan Klembara. All rights reserved.
 //
+//  View for showing one ingredience in row with possibility to add it to set of ingrediences.
 
 import SwiftUI
 
@@ -15,6 +16,7 @@ struct IngredienceSelectionRowView: View {
     
     var body: some View {
         HStack {
+            /// Toggles selection state of current ingredience.
             Button(action: {
                 if self.selection.contains(self.ing) {
                     self.selection = self.selection.filter { $0 != self.ing }
@@ -30,6 +32,7 @@ struct IngredienceSelectionRowView: View {
                 
             }
             Spacer()
+            /// Shows name of ingredience.
             Text(ing.name ?? "None" )
             } .padding()
         
